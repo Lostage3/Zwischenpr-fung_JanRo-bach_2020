@@ -1,26 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
     [SerializeField] Transform playerCamera = null;
     [SerializeField] float mouseSensitivity = 4f;
     [SerializeField] float walkSpeed = 6f;
-    [SerializeField] float gravity = -9f;
+    [SerializeField] float sprintSpeed = 9f;
+    [SerializeField] float jumpHeight = 3f;
+    [SerializeField] float gravity = -10f;
     [SerializeField, Range(0.0f, 0.5f)] float moveSmooth = 0.3f;
     [SerializeField, Range(0.0f, 0.5f)] float mouseSmooth = 0.03f;
     [SerializeField] bool lockCursor = true;
 
     float cameraPitch = 0.0f;
-    float downVelocity = 0.0f;
 
     CharacterController characterController = null;
 
-    Vector2 currentDirection = Vector2.zero;
-    Vector2 currentDirectionVelocity = Vector2.zero;
-    Vector2 currentMouseDelta = Vector2.zero;
-    Vector2 currentMouseDeltaVelocity = Vector2.zero;
+    Vector3 velocity;
+    Vector3 currentDirection = Vector3.zero;
+    Vector3 currentDirectionVelocity = Vector3.zero;
+    Vector3 currentMouseDelta = Vector3.zero;
+    Vector3 currentMouseDeltaVelocity = Vector3.zero;
 
     void Start()
     {
@@ -40,9 +40,9 @@ public class FirstPersonController : MonoBehaviour
 
     void FirstPersonView()
     {
-        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector3 targetMouseDelta = new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0);
 
-        currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmooth);
+        currentMouseDelta = Vector3.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmooth);
 
         cameraPitch -= currentMouseDelta.y * mouseSensitivity;
         cameraPitch = Mathf.Clamp(cameraPitch, -90f, 90f);
@@ -53,18 +53,30 @@ public class FirstPersonController : MonoBehaviour
 
     void Movement()
     {
-        Vector2 targetDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector3 targetDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         targetDirection.Normalize();
 
-        currentDirection = Vector2.SmoothDamp(currentDirection, targetDirection, ref currentDirectionVelocity, moveSmooth);
+        currentDirection = Vector3.SmoothDamp(currentDirection, targetDirection, ref currentDirectionVelocity, moveSmooth);
 
         if (characterController.isGrounded)
         {
-            downVelocity = 0.0f;
+            velocity.y = 0.0f;
         }
-        downVelocity += gravity * Time.deltaTime;
 
-        Vector3 velocity = (transform.forward * currentDirection.y + transform.right * currentDirection.x) * walkSpeed + Vector3.up * downVelocity;
+        velocity = (transform.forward * currentDirection.z + transform.right * currentDirection.x) * walkSpeed + Vector3.up * velocity.y;
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            velocity = (transform.forward * currentDirection.z + transform.right * currentDirection.x) * sprintSpeed + Vector3.up * velocity.y;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+
         characterController.Move(velocity * Time.deltaTime);
     }
 }
