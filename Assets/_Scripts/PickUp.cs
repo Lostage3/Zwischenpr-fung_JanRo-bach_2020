@@ -5,7 +5,9 @@ public class PickUp : MonoBehaviour
 	[SerializeField] GameObject fpsCamera = null;
 	bool carrying;
 	GameObject carriedObject;
-	[SerializeField] float distance = 3f;
+	[SerializeField] float nearDistance = 1f;
+	[SerializeField] float normalDistance = 3f;
+	[SerializeField] float farDistance = 6f;
 	[SerializeField] float smooth = 4f;
 	[SerializeField] float range = 5f;
 	
@@ -24,7 +26,17 @@ public class PickUp : MonoBehaviour
 
 	void Carry(GameObject o)
 	{
-		o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * distance, Time.deltaTime * smooth);
+
+		if (Input.GetKey(KeyCode.Alpha1))
+		{
+			o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * nearDistance, Time.deltaTime * smooth);
+		}
+		if (Input.GetKey(KeyCode.Alpha2))
+		{ 
+			o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * farDistance, Time.deltaTime * smooth);
+		}
+
+		o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * normalDistance, Time.deltaTime * smooth);
 		o.transform.rotation = Quaternion.identity;
 
 	}
