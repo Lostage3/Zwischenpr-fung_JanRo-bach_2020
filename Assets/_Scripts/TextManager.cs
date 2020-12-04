@@ -18,7 +18,7 @@ public class TextManager : MonoBehaviour
         timer += Time.deltaTime;
         if (timer < 30f)
         {
-            gameText.text = "Steuerung: WASD zum Bewegen, Umschalt zum Sprinten, Leertaste zum springen, linke Maustaste zum Verkeinern und rechte Maustaste zum Vergrößern, E zum Aufheben, 1 und 2 zum einstellen der Entfernung beim Aufheben, R zum resetten der Boxen";
+            gameText.text = "Steuerung: WASD zum Bewegen, Leertaste zum springen, linke Maustaste zum Verkeinern und rechte Maustaste zum Vergrößern, E zum Aufheben, 1 und 2 zum einstellen der Entfernung beim Aufheben, R zum resetten der Boxen";
         }
         if(timer >= 30f)
         {

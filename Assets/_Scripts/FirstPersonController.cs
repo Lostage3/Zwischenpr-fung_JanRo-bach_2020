@@ -6,7 +6,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] Transform playerCamera = null;
     [SerializeField] float mouseSensitivity = 4f;
     [SerializeField] float walkSpeed = 6f;
-    [SerializeField] float sprintSpeed = 9f;
     [SerializeField] float jumpHeight = 3f;
     [SerializeField] float gravity = -10f;
     [SerializeField, Range(0.0f, 0.5f)] float moveSmooth = 0.3f;
@@ -16,8 +15,6 @@ public class FirstPersonController : MonoBehaviour
     float cameraPitch = 0.0f;
 
     CharacterController characterController = null;
-
-    PickUp drop;
 
     CubeReset cubeReset;
     [SerializeField]List<GameObject> cubes = new List<GameObject>();
@@ -31,8 +28,6 @@ public class FirstPersonController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-
-        drop = GetComponent<PickUp>();
 
         if (lockCursor)
         {
@@ -84,11 +79,6 @@ public class FirstPersonController : MonoBehaviour
         }
 
         velocity = (transform.forward * currentDirection.z + transform.right * currentDirection.x) * walkSpeed + Vector3.up * velocity.y;
-        
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            velocity = (transform.forward * currentDirection.z + transform.right * currentDirection.x) * sprintSpeed + Vector3.up * velocity.y;
-        }
 
         if(Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded)
         {
