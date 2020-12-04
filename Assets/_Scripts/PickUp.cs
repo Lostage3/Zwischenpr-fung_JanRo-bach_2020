@@ -39,6 +39,12 @@ public class PickUp : MonoBehaviour
 		o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * normalDistance, Time.deltaTime * smooth);
 		o.transform.rotation = Quaternion.identity;
 
+		if (carriedObject.gameObject.GetComponent<CubeReset>().Drop)
+		{
+			dropObject();
+			
+		}
+
 	}
 
 	void pickup()
@@ -54,6 +60,7 @@ public class PickUp : MonoBehaviour
 					carrying = true;
 					carriedObject = pickUpEnable.gameObject;
 					pickUpEnable.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+					pickUpEnable.gameObject.GetComponent<MeshCollider>().isTrigger = true;
 				}
 			}
 		}
@@ -67,10 +74,12 @@ public class PickUp : MonoBehaviour
 		}
 	}
 
-	void dropObject()
+	public void dropObject()
 	{
 		carrying = false;
 		carriedObject.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+		carriedObject.gameObject.GetComponent<MeshCollider>().isTrigger = false;
+
 		carriedObject = null;
 	}
 }

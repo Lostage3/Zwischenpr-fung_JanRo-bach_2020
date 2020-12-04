@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class FirstPersonController : MonoBehaviour
 
     CharacterController characterController = null;
 
+    PickUp drop;
+
+    CubeReset cubeReset;
+    [SerializeField]List<GameObject> cubes = new List<GameObject>();
+
     Vector3 velocity;
     Vector3 currentDirection = Vector3.zero;
     Vector3 currentDirectionVelocity = Vector3.zero;
@@ -25,6 +31,9 @@ public class FirstPersonController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+
+        drop = GetComponent<PickUp>();
+
         if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -36,6 +45,17 @@ public class FirstPersonController : MonoBehaviour
     {
         FirstPersonView();
         Movement();
+
+        foreach (GameObject box in cubes)
+        {
+            cubeReset = box.GetComponent<CubeReset>();
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                
+                cubeReset.Reset();
+            }
+        } 
     }
 
     void FirstPersonView()
@@ -80,3 +100,4 @@ public class FirstPersonController : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
     }
 }
+ 

@@ -3,7 +3,7 @@
 public class Gun : MonoBehaviour
 {
     [SerializeField] float range = 100f;
-    [SerializeField] float minScale = 1f;
+    public float minScale = 1f;
     [SerializeField] float middleScale = 2f;
     [SerializeField] float maxScale = 3f;
 

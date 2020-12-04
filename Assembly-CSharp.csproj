@@ -63,13 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Scripts\CubeReset.cs" />
     <Compile Include="Assets\_Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\_Scripts\Gun.cs" />
     <Compile Include="Assets\_Scripts\PickUp.cs" />
     <Compile Include="Assets\_Scripts\PickUpEnable.cs" />
     <Compile Include="Assets\_Scripts\TextManager.cs" />
-    <None Include="Assets\Customizable Skybox\Stylized Sky\Shaders\Stylized Sky.shader" />
-    <None Include="Assets\Five Seamless Tileable Ground Textures\read me.txt" />
+    <None Include="Assets\_DownloadedAssets\Customizable Skybox\Stylized Sky\Shaders\Stylized Sky.shader" />
+    <None Include="Assets\_DownloadedAssets\Five Seamless Tileable Ground Textures\read me.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
