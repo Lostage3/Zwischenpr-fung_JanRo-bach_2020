@@ -50,7 +50,11 @@ public class FirstPersonController : MonoBehaviour
                 
                 cubeReset.Reset();
             }
-        } 
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     void FirstPersonView()

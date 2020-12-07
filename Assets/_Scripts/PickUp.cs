@@ -29,14 +29,14 @@ public class PickUp : MonoBehaviour
 
 		if (Input.GetKey(KeyCode.Alpha1))
 		{
-			o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * nearDistance, Time.deltaTime * smooth);
+			o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * nearDistance, Time.fixedDeltaTime * smooth);
 		}
 		if (Input.GetKey(KeyCode.Alpha2))
 		{ 
-			o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * farDistance, Time.deltaTime * smooth);
+			o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * farDistance, Time.fixedDeltaTime * smooth);
 		}
 
-		o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * normalDistance, Time.deltaTime * smooth);
+		o.transform.position = Vector3.Lerp(o.transform.position, fpsCamera.transform.position + fpsCamera.transform.forward * normalDistance, Time.fixedDeltaTime * smooth);
 		o.transform.rotation = Quaternion.identity;
 
 		if (carriedObject.gameObject.GetComponent<CubeReset>().Drop)
