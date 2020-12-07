@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class MenuButtons : MonoBehaviour
 {
-    [SerializeField] bool IsStart;
-    [SerializeField] bool IsQuit;
+    [SerializeField] bool IsStart = false;
+    [SerializeField] bool IsQuit = false;
     void OnMouseUp()
     {
         if (IsStart)
