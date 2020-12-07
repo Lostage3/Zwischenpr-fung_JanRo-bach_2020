@@ -35,11 +35,11 @@ public class TextManager : MonoBehaviour
         }
         if (timer1 >= 22f && timer1 < 32f)
         {
-            gameText.text = "Probiere es mal. Ziele mit der Maus auf eine Holzkiste und drücke rechte Maustaste um diese zu vergrößern und linke Muastaste um sie wieder zu verkleinern.";
+            gameText.text = "Probiere es mal. Ziele mit der Maus auf eine Holzkiste und drücke rechte Maustaste um diese zu vergrößern und linke Maustaste um sie wieder zu verkleinern.";
         }
         if (timer1 >= 32f && timer1 < 42f)
         {
-            gameText.text = "Mit WASD kannst du dich bewegen und mit Leertaste springen. Mit E hebst du die Kisten auf um sie neu zupositionieren.";
+            gameText.text = "Mit WASD kannst du dich bewegen und mit Leertaste springen. Mit E hebst du die Kisten auf um sie neu zu positionieren.";
         }
         if (timer1 >= 42f && timer1 < 52f)
         {
